@@ -12,17 +12,21 @@ public class MaxTemperatureMapper extends Mapper<LongWritable,Text,Text,IntWrita
 	
 	@Override
 	public void map(LongWritable key,Text value,Context context)throws IOException,InterruptedException{
-		context.write(new Text("开始啦"),new IntWritable(0));
-		try{
-			parser.parse(value);
-			if(parser.isValidTemperature()){
-				context.write(new Text(parser.getYear()),new IntWritable(parser.getAirTemperature()));
-			}else{
-				context.write(new Text("格式不对"),new IntWritable(0));
-			}
-		}catch(Exception e){
-			//Do nothing
+		//context.write(new Text("开始啦"),new IntWritable(0));
+		
+		/*
+		String line=value.toString();
+		String year=line.substring(15, 19);
+		int airTemp=Integer.parseInt(line.substring(87,92));
+		context.write(new Text(year), new IntWritable(airTemp));
+		*/
+		
+		//Parser 版本
+		parser.parse(value);
+		if(parser.isValidTemperature()){
+			context.write(new Text(parser.getYear()),new IntWritable(parser.getAirTemperature()));
 		}
+	
 		
 	}
 	

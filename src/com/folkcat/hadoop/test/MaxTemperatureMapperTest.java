@@ -22,6 +22,5 @@ public class MaxTemperatureMapperTest {
 				.withInput(k,value)
 				.withOutput(new Text("1990"),new IntWritable(-2))
 				.runTest();
-
 	}
 }
